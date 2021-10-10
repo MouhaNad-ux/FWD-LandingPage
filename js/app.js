@@ -59,20 +59,20 @@ const itemsCreate =  () => {     // a function to add the sections from the inde
     scrolDw();
 }
 
-
-
-const  sectionViewPort =  (arg) => {
-    let pos = arg.getBoundingClientRect();
-    return (pos.top >= 0);
-}
+// getting the largest value that's less or equal to the number
+const offset = (section) => {
+  return Math.floor(section.getBoundingClientRect().top);
+};
 // function  active section upon scroll using the pre-implemented starter code section active styles
 const activeSection = () => {
-    sections.forEach(section => {
-       if (sectionViewPort(section)) {
-
-        if(!section.classList.contains('your-active-class')){
-            section.classList.add('your-active-class');
-        }
+   sections.forEach(section => {
+    
+    section.classList.remove('your-active-class');  // removing any old active class   
+       const elementOffset = offset(section);
+       if ( elementOffset < 150 && elementOffset >= -150) {
+        section.classList.add('your-active-class');
+        // changing the backgrond color of the cuurent active section
+        section.style.cssText = "background-color:  rgb(8, 184, 238);"; 
        }
 
     });
