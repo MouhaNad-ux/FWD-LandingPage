@@ -31,19 +31,19 @@ const mybutton = document.getElementById("myBtn");
 
 
 // function to show the top button when the page is scrolled down
-const  scrolDw = () => {
+/*const  scrolDw = () => {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     mybutton.style.display =  "block";
   } else {
     mybutton.style.display = "none";
   }
-}
+} */
 
 // When the user clicks on the button, scroll to the top of the document
-const topFunction = () => {
+/* const topFunction = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
-}
+} */
 
 const itemsCreate =  () => {     // a function to add the sections from the index html to the dynamic array
      let listItem = '';
@@ -56,7 +56,11 @@ const itemsCreate =  () => {     // a function to add the sections from the inde
         
     });
     navigation.innerHTML=listItem;
-    scrolDw();
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display =  "block";
+  } else {
+    mybutton.style.display = "none";
+  };
 }
 
 // getting the largest value that's less or equal to the number
@@ -78,10 +82,10 @@ const activeSection = () => {
     });
 }
 // function to Hide fixed navigation bar while not scrolling
-const hideNav =() =>{
+/* const hideNav =() =>{
     document.getElementById('navbar__list').style.display = "block";
     setTimeout(function(){document.getElementById('navbar__list').style.display = "none";},1000);
-}
+} */
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -92,13 +96,26 @@ const hideNav =() =>{
 itemsCreate();
 
 // Add class 'active' to section when near top of viewport
-
+document.addEventListener('scroll', activeSection); // specifies active section upon scroll
 
 // Scroll to anchor ID using scrollTO event
-document.addEventListener('scroll', activeSection); // specifies active section upon scroll
-document.addEventListener('scroll', hideNav); // hides active section upon scroll
-mybutton.addEventListener('click',topFunction); // event listner to clicks on the scroll to the top button
-document.addEventListener('scroll',scrolDw);// event listner to scrolls  to show  the top button
+
+
+document.addEventListener('scroll', ()=>{
+ document.getElementById('navbar__list').style.display = "block";
+    setTimeout(function(){document.getElementById('navbar__list').style.display = "none";},1000);}); // hides active section upon scroll
+
+mybutton.addEventListener('click',() => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;); // event listner to clicks on the scroll to the top button
+
+  document.addEventListener('scroll',()=>{
+if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display =  "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+});// event listner to scrolls  to show  the top button
 /**
  * End Main Functions
  * Begin Events
